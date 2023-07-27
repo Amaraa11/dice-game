@@ -1,35 +1,63 @@
-// Togloglogchiin eeljiig hadgalah huvisagch, 1-r toglogchiig 0, 2-r toglogchiig 1 gej temdegley
-var activePlayer = 0;
+// Togloomiin buh gazar ashiglagdah global huvisagchiig end zarlay.
+// Ali toglogchin shoo hayh eelj ve gedgiig todorhoilno.
+var activePlayer;
 
+// Hoyr toglogchiin tsugluulsan onoo
+var scores;
+
+// idevhtei toglogchiin tsugluulj baigaa eeljiin onoo.
+var roundScore;
+
+// Shoonii zurgiig uzuuleh elementiig DOW-oos haij olood end hadgalay.
+var diceDom = document.querySelector(".dice");
+
+// Togloomiig ehluulne
+initGame();
+
+// Shine togloomiig ehluuleh tovchnii event listener
+function initGame() {
+// Togloglogchiin eeljiig hadgalah huvisagch, 1-r toglogchiig 0, 2-r toglogchiig 1 gej temdegley
+activePlayer = 0;
 
 // Toglogchiin tsugluulssan onoog hadgalah huvisagch
-var scores = [0, 0];
+scores = [0, 0];
 
 // Toglohchiin eeljindee tsugluulj baigaa onoog hadgalah huvisagch
-var roundScore = 0;
-
-// Shoomii ali talaaraa buusniig hadgalah huvisagch heregtei, 1-6 gesen utgiig ene huvisagchid sanamsarguigeer uusgej ogno.
-
-
-// <div class="player-score" id="score-0">43</div>
-
+roundScore = 0;
 
 //document.querySelector('#score-1').innerHTML = '<em>Yes!<em>';
-document.getElementById('score-1').textContent = "0";
-document.getElementById('score-0').textContent = "0";
+    document.getElementById('score-1').textContent = "0";
+    document.getElementById('score-0').textContent = "0";
+    document.getElementById('current-0').textContent = "0";
+    document.getElementById('current-1').textContent = "0";
 
-document.getElementById('current-0').textContent = "0";
-document.getElementById('current-1').textContent = "0";
-var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
+    // Toglogchdiin neriig butsaaj gargah
+    document.getElementById("name-0").textContent = "Player 1";
+    document.getElementById("name-1").textContent = "Player 2";
+
+    document.querySelector(".player-0-panel").classList.remove("winner");
+    document.querySelector(".player-1-panel").classList.remove("winner");
+    document.querySelector(".player-0-panel").classList.remove("active");
+    document.querySelector(".player-1-panel").classList.remove("active");
+
+    document.querySelector(".player-0-panel").classList.add("active");
+
+
+    diceDom.style.display = "none";
+}
+
 // shoog shideh event listener
 document.querySelector(".btn-roll").addEventListener("click", function () {
+
     //1-6 dotorh sanamsargui 1 too buulgah
     var diceNumber = Math.floor(Math.random() * 6) + 1;
+
     //shoonii zurgiig web deer gargaj irne
     diceDom.style.display = "block";
+
     //buusan shoonii toond hargalzan shoonii zurgiig web deer gargaj irne
     diceDom.src = "dice-" + diceNumber + ".png";
+
     //Buusan too ni 1ees yalgaatai bol idvehtei toglogchiin eeljiin onoog nemegduulne
     if (diceNumber !== 1) {
         // 1ees yalgaatai too buulaa. Buusan toog toglogchid nemj ogno.
@@ -46,6 +74,7 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
 
 //HOLD tovchnii event listenting
 document.querySelector(".btn-hold").addEventListener("click", function () {
+
     // Ug toglogchiin tsugluulsan eeljnii onoog global onoon deer nemj ogno.
     scores[activePlayer] = scores[activePlayer] + roundScore;
 
@@ -53,7 +82,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
   
     // Ug toglogchiin hojson esehiis (onoo ni 100-s ih eseh) shalgah.
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 10) {
         // Ylagch gesen textiig nerniih ni orond gargana.
         document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
         document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
@@ -81,3 +110,6 @@ function switchToNextPlayer() {
         //shoog tur alga bolgoh
         diceDom.style.display = "none";
 };
+
+// New Game tovchnii event listener
+document.querySelector(".btn-new").addEventListener("click", initGame);
