@@ -1,4 +1,7 @@
 // Togloomiin buh gazar ashiglagdah global huvisagchiig end zarlay.
+// Togloom duussan esehiig hadgalah toloviin huvisagch.
+var isNewGame;
+
 // Ali toglogchin shoo hayh eelj ve gedgiig todorhoilno.
 var activePlayer;
 
@@ -16,6 +19,8 @@ initGame();
 
 // Shine togloomiig ehluuleh tovchnii event listener
 function initGame() {
+    // Togloom shineer ehlehed beltgene.
+    isNewGame = true;
 // Togloglogchiin eeljiig hadgalah huvisagch, 1-r toglogchiig 0, 2-r toglogchiig 1 gej temdegley
 activePlayer = 0;
 
@@ -42,14 +47,13 @@ roundScore = 0;
 
     document.querySelector(".player-0-panel").classList.add("active");
 
-
     diceDom.style.display = "none";
 }
 
 // shoog shideh event listener
 document.querySelector(".btn-roll").addEventListener("click", function () {
-
-    //1-6 dotorh sanamsargui 1 too buulgah
+    if (isNewGame) {
+        //1-6 dotorh sanamsargui 1 too buulgah
     var diceNumber = Math.floor(Math.random() * 6) + 1;
 
     //shoonii zurgiig web deer gargaj irne
@@ -68,14 +72,16 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     } else {
         // 1 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
         switchToNextPlayer();
-    
+        } 
+    } else {
+            alert("Togloom duussan baina. NEW GAME tovchiig darj shineer ehlene uu")
     }
 });
 
 //HOLD tovchnii event listenting
 document.querySelector(".btn-hold").addEventListener("click", function () {
-
-    // Ug toglogchiin tsugluulsan eeljnii onoog global onoon deer nemj ogno.
+    if (isNewGame) {
+        // Ug toglogchiin tsugluulsan eeljnii onoog global onoon deer nemj ogno.
     scores[activePlayer] = scores[activePlayer] + roundScore;
 
     // Delgets deer onoog oorchilno.
@@ -83,6 +89,9 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
   
     // Ug toglogchiin hojson esehiis (onoo ni 100-s ih eseh) shalgah.
     if (scores[activePlayer] >= 10) {
+        // Togloomiig duussan tolovt oruulna
+        isNewGame = false;
+
         // Ylagch gesen textiig nerniih ni orond gargana.
         document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
         document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
@@ -90,6 +99,9 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     } else {
         // Toglogchiin eeljiig solino.
         switchToNextPlayer();
+    }
+   } else {
+            alert("Togloom duussan baina. NEW GAME tovchiig darj shineer ehlene uu")
     }
 });
 
