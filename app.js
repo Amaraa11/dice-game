@@ -12,7 +12,8 @@ var scores;
 var roundScore;
 
 // Shoonii zurgiig uzuuleh elementiig DOW-oos haij olood end hadgalay.
-var diceDom = document.querySelector(".dice");
+var dice1Dom = document.querySelector(".dice1");
+var dice2Dom = document.querySelector(".dice2");
 
 // Togloomiig ehluulne
 initGame();
@@ -47,30 +48,35 @@ roundScore = 0;
 
     document.querySelector(".player-0-panel").classList.add("active");
 
-    diceDom.style.display = "none";
+    dice1Dom.style.display = "none";
+    dice2Dom.style.display = "none";
 }
 
 // shoog shideh event listener
 document.querySelector(".btn-roll").addEventListener("click", function () {
     if (isNewGame) {
-        //1-6 dotorh sanamsargui 1 too buulgah
-    var diceNumber = Math.floor(Math.random() * 6) + 1;
+        //2-12 dotorh sanamsargui 2 too buulgah
+        var diceNumber1 = Math.floor(Math.random() * 6) + 1;
+        var diceNumber2 = Math.floor(Math.random() * 6) + 1;
 
     //shoonii zurgiig web deer gargaj irne
-    diceDom.style.display = "block";
+        dice1Dom.style.display = "block";
+        dice2Dom.style.display = "block";
 
     //buusan shoonii toond hargalzan shoonii zurgiig web deer gargaj irne
-    diceDom.src = "dice-" + diceNumber + ".png";
+        dice1Dom.src = "dice-" + diceNumber1 + ".png";
+        dice2Dom.src = "dice-" + diceNumber2 + ".png";
 
-    //Buusan too ni 1ees yalgaatai bol idvehtei toglogchiin eeljiin onoog nemegduulne
-    if (diceNumber !== 1) {
-        // 1ees yalgaatai too buulaa. Buusan toog toglogchid nemj ogno.
+    //Buusan too ni 2 oos yalgaatai bol idvehtei toglogchiin eeljiin onoog nemegduulne
+    if (diceNumber1 + diceNumber2 !== 2) {
+        // 2oos yalgaatai too buulaa. Buusan toog toglogchid nemj ogno.
+        diceNumber = diceNumber1 + diceNumber2;
         roundScore = roundScore + diceNumber;
         document.getElementById('current-' + activePlayer).textContent = roundScore;
 
 
     } else {
-        // 1 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
+        // 2 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
         switchToNextPlayer();
         } 
     } else {
@@ -88,7 +94,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
   
     // Ug toglogchiin hojson esehiis (onoo ni 100-s ih eseh) shalgah.
-    if (scores[activePlayer] >= 100) {
+    if (scores[activePlayer] >= 1000) {
         // Togloomiig duussan tolovt oruulna
         isNewGame = false;
 
@@ -120,7 +126,8 @@ function switchToNextPlayer() {
         document.querySelector('.player-1-panel').classList.toggle('active');
 
         //shoog tur alga bolgoh
-        diceDom.style.display = "none";
+    dice1Dom.style.display = "none";
+    dice2Dom.style.display = "none";
 };
 
 // New Game tovchnii event listener
